@@ -34,8 +34,8 @@ class _TodoAppState extends State<TodoApp> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  Icon(FontAwesomeIcons.stream),
-                  SizedBox(
+                   Icon(FontAwesomeIcons.stream),
+               SizedBox(
                     height: 10,
                     width: double.infinity,
                   ),
