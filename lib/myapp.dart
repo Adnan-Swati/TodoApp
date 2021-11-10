@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
-
-
 class TodoApp extends StatefulWidget {
   const TodoApp({Key? key}) : super(key: key);
 
@@ -12,19 +9,28 @@ class TodoApp extends StatefulWidget {
 }
 
 class _TodoAppState extends State<TodoApp> {
- 
   var output = "";
   List<dynamic> lst = [];
+
+  get boxShadow => null;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             decoration: BoxDecoration(
                 color: Colors.pink[500],
+                boxShadow: [
+                  BoxShadow(color: Colors.white.withOpacity(0.5),
+                  spreadRadius: 10,
+                  blurRadius: 20,
+                  ),
+
+                ],
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(40),
                   bottomRight: Radius.circular(40),
@@ -34,8 +40,8 @@ class _TodoAppState extends State<TodoApp> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                   Icon(FontAwesomeIcons.stream),
-               SizedBox(
+                  Icon(FontAwesomeIcons.stream),
+                  SizedBox(
                     height: 10,
                     width: double.infinity,
                   ),
@@ -70,6 +76,14 @@ class _TodoAppState extends State<TodoApp> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color: Colors.pink[500],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.8),
+                  spreadRadius: 1,
+                  blurRadius: 20,
+                  
+                              )
+                            ]
                           ),
                           height: 50,
                           margin: const EdgeInsets.only(top: 15),
@@ -78,90 +92,101 @@ class _TodoAppState extends State<TodoApp> {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black)),
-                            trailing: Row(
-                             children: [
-                              GestureDetector(
-                                  onTap: () {
-                                    
-                                    showDialog(
+                            trailing: Container(
+                              width: 60,
+                              
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      showDialog(
                                         context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: const Text("Edit Item"),
-                                            content: TextField(
-                                              decoration: const InputDecoration(
-                                                  labelText:
-                                                      'Enter Your Item',
-                                                  labelStyle: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  border: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color:
-                                                              Colors.black))),
-                                              onChanged: (value) {
-                                                output = value;
-                                              },
-                                            ),
-                                            actions: <Widget>[
-                                              ElevatedButton(
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              backgroundColor: Colors.white,
+                                              title: const Text("Edit Item"),
+                                              content: TextField(
+                                                decoration: const InputDecoration(
+                                                    labelText:
+                                                        'Enter Your Item',
+                                                    labelStyle: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    border: OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color:
+                                                                Colors.black))),
+                                                onChanged: (value) {
+                                                  output = value;
+                                                },
+                                              ),
+                                              actions: <Widget>[
+                                                ElevatedButton(
                                                   onPressed: () {
-                                                    Navigator.of(context)
-                                                        .pop();
-                                                  },
-                                                  child: const Text(
-                                                    "Cancel",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                  style: ElevatedButton
-                                                      .styleFrom(
-                                                          primary: Colors
-                                                              .pink[500])),
-                                              ElevatedButton(
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      lst.replaceRange(index, index+1, {output});
-                                                    });
-                                                    Navigator.of(context)
-                                                        .pop();
-                                                  },
-                                                  child: const Text("Edit",
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text(
+                                                      "Cancel",
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: Colors.black,
-                                                      )),
-                                                  style: ElevatedButton
-                                                      .styleFrom(
-                                                          primary: Colors
-                                                              .pink[500]))
-                                            ],
-                                          );
-                                        });
-                                  },
+                                                      ),
+                                                    ),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                          elevation: 10,
+                                                          shadowColor: Colors.black.withOpacity(0.8),
+                                                            primary: Colors
+                                                                .pink[500])),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                      setState(() {
+                                                        lst.replaceRange(
+                                                            index,
+                                                            index + 1,
+                                                            {output});
+                                                      });
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text("Edit",
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                        )),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                          elevation: 10,
+                                                          shadowColor: Colors.white.withOpacity(0.8),
+                                                            primary: Colors
+                                                                .pink[500]))
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    child: const Icon(
+                                      Icons.edit,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                   
-                                  child: const Icon(
-                                    Icons.edit,
-                                    color: Colors.black,
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        lst.removeAt(index);
+                                      });
+                                    },
+                                    child: const Icon(
+                                      Icons.delete,
+                                      color: Colors.black,
+                                    ),
                                   ),
-                                ),
-                                
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      lst.removeAt(index);
-                                    });
-                                  },
-                                  child: const Icon(
-                                    Icons.delete,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         );
@@ -174,59 +199,80 @@ class _TodoAppState extends State<TodoApp> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.pink[500],
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text("Add Item"),
-                  content: TextField(
-                    decoration: const InputDecoration(
-                        labelText: 'Enter your item',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black))),
-                    onChanged: (value) {
-                      output = value;
-                    },
-                  ),
-                  actions: <Widget>[
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text(
-                          "Cancel",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.pink[500])),
-                    ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            lst.add(output);
-                          });
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("Add",
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.white.withOpacity(1),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  
+            )
+          ]
+        ),
+        child: FloatingActionButton(
+          
+          backgroundColor: Colors.pink[500],
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                     backgroundColor: Colors.white,
+                    title: const Text("Add Item"),
+                    content: TextField(
+                      decoration: const InputDecoration(
+                          labelText: 'Enter your item',
+                          labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white))),
+                      onChanged: (value) {
+                        output = value;
+                      },
+                    ),
+                    actions: <Widget>[
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            "Cancel",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
-                            )),
-                        style:
-                            ElevatedButton.styleFrom(primary: Colors.pink[500]))
-                  ],
-                );
-              });
-        },
-        child: const Icon(
-          Icons.add,
-          color: Colors.black,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            elevation: 10,
+                            shadowColor: Colors.black.withOpacity(1),
+                              primary: Colors.pink[500])),
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              lst.add(output);
+                            });
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Add",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              )),
+                          style:
+                              ElevatedButton.styleFrom(
+                                elevation: 10,
+                                 shadowColor: Colors.black.withOpacity(1),
+                                primary: Colors.pink[500]))
+                    ],
+                  );
+                });
+          },
+          child: const Icon(
+            Icons.add,
+            color: Colors.black,
+            size: 40,
+          ),
         ),
       ),
     );
